@@ -9,6 +9,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.Map;
 
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
@@ -19,11 +20,12 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-@Singleton
-@Startup
+// For local game playing use two players
+//@Singleton
+//@Startup
 public class Scheduler2 { // player 2
 
-	private static final String ENDPOINT = "http://connect-4-api-dev7-connect4.apps.cluster-sva-7909.sva-7909.example.opentlc.com/";
+	private static String ENDPOINT = "http://connect-4-api-dev7-connect4.apps.cluster-sva-7909.sva-7909.example.opentlc.com/";
 
 	private static final String PLAYER = "player_2";
 
@@ -31,7 +33,7 @@ public class Scheduler2 { // player 2
 
 	private static final String TURN_ENDPOINT = ENDPOINT + "turn";
 
-	@Schedule(hour = "*", minute = "*", second = "*")
+//	@Schedule(hour = "*", minute = "*", second = "*")
 	public void excute() {
 
 		StringBuilder jsonBuilder = new StringBuilder();

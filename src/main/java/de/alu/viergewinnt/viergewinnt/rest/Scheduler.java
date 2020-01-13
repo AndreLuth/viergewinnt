@@ -9,6 +9,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.Map;
 
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
@@ -23,9 +24,9 @@ import com.google.gson.JsonParser;
 @Startup
 public class Scheduler { // player 1
 
-	private static final String ENDPOINT = "http://connect-4-api-dev7-connect4.apps.cluster-sva-7909.sva-7909.example.opentlc.com/";
+	private static String ENDPOINT = "http://connect-4-api-dev7-connect4.apps.cluster-sva-7909.sva-7909.example.opentlc.com/";
 
-	private static final String PLAYER = "player_1";
+	private static String PLAYER = "player_1";
 
 	private static final String BOARD_ENDPOINT = ENDPOINT + "board";
 
@@ -33,6 +34,14 @@ public class Scheduler { // player 1
 
 	@Schedule(hour = "*", minute = "*", second = "*")
 	public void excute() {
+
+		// try to get endpoint from environment
+		Map<String, String> params = System.getenv();
+		if (params != null) {
+			ENDPOINT = params.getOrDefault("endpoint",
+					"http://connect-4-api-dev7-connect4.apps.cluster-sva-7909.sva-7909.example.opentlc.com/");
+			PLAYER = params.getOrDefault("player", "player_1");
+		}
 
 		StringBuilder jsonBuilder = new StringBuilder();
 		try {
