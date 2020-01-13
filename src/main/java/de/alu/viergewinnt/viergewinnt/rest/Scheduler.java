@@ -28,9 +28,9 @@ public class Scheduler { // player 1
 
 	private static String PLAYER = "player_1";
 
-	private static final String BOARD_ENDPOINT = ENDPOINT + "board";
+	private static String BOARD_ENDPOINT = "board";
 
-	private static final String TURN_ENDPOINT = ENDPOINT + "turn";
+	private static String TURN_ENDPOINT = "turn";
 
 	@Schedule(hour = "*", minute = "*", second = "*", persistent = false)
 	public void excute() {
@@ -46,7 +46,7 @@ public class Scheduler { // player 1
 		StringBuilder jsonBuilder = new StringBuilder();
 		try {
 
-			URL url = new URL(BOARD_ENDPOINT);
+			URL url = new URL(ENDPOINT + BOARD_ENDPOINT);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
 			conn.setRequestProperty("Accept", "application/json");
@@ -112,8 +112,10 @@ public class Scheduler { // player 1
 		// Field:
 //		 0  1  2  3  4  5  6
 //		 7  8  9 10 11 12 13
-//		14 15 16 17 ...
-//		... 41
+//		14 15 16 17 18 19 20
+//		21 22 23 24 25 26 27
+//		28 29 30 31 32 33 34
+//		35 36 37 38 39 40 41
 
 		// simple heuristic
 		// play: maybe search the last zero and use this -> the last one is always on the last line
@@ -126,7 +128,7 @@ public class Scheduler { // player 1
 				}
 			}
 		}
-		
+
 		// more complex one?
 
 		System.out.println("No valid turn found.");
@@ -136,7 +138,7 @@ public class Scheduler { // player 1
 	private void makeTurn(int position) {
 		try {
 
-			URL url = new URL(TURN_ENDPOINT);
+			URL url = new URL(ENDPOINT + TURN_ENDPOINT);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("POST");
 			conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
