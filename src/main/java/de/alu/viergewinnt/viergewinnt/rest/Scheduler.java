@@ -32,7 +32,7 @@ public class Scheduler { // player 1
 
 	private static final String TURN_ENDPOINT = ENDPOINT + "turn";
 
-	@Schedule(hour = "*", minute = "*", second = "*")
+	@Schedule(hour = "*", minute = "*", second = "*", persistent = false)
 	public void excute() {
 
 		// try to get endpoint from environment
@@ -115,7 +115,8 @@ public class Scheduler { // player 1
 //		14 15 16 17 ...
 //		... 41
 
-		// TODO play: maybe search the last zero and use this -> the last one is always on the last line
+		// simple heuristic
+		// play: maybe search the last zero and use this -> the last one is always on the last line
 		if (field != null && field.length > 0) {
 			for (int i = field.length - 1; i >= 0; i--) {
 				if (field[i] == 0) {
@@ -125,6 +126,8 @@ public class Scheduler { // player 1
 				}
 			}
 		}
+		
+		// more complex one?
 
 		System.out.println("No valid turn found.");
 
